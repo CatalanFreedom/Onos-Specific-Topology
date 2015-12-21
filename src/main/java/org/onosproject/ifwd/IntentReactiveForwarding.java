@@ -32,6 +32,7 @@ import org.onosproject.net.PortNumber;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.net.flow.DefaultTrafficSelector;
 import org.onosproject.net.flow.DefaultTrafficTreatment;
+//import org.onosproject.net.flow.DefaultTrafficTreatment.Builder;
 import org.onosproject.net.flow.FlowRuleService;
 import org.onosproject.net.flow.TrafficSelector;
 import org.onosproject.net.flow.TrafficTreatment;
@@ -39,10 +40,10 @@ import org.onosproject.net.flow.TrafficTreatment;
 import org.onosproject.net.flowobjective.FlowObjectiveService;
 //import org.onosproject.net.flowobjective.ForwardingObjective;
 import org.onosproject.net.host.HostService;
-//import org.onosproject.net.intent.HostToHostIntent;
+import org.onosproject.net.intent.HostToHostIntent;
 import org.onosproject.net.intent.IntentService;
 import org.onosproject.net.intent.IntentState;
-//import org.onosproject.net.intent.Key;
+import org.onosproject.net.intent.Key;
 import org.onosproject.net.packet.DefaultOutboundPacket;
 import org.onosproject.net.packet.InboundPacket;
 import org.onosproject.net.packet.OutboundPacket;
@@ -156,13 +157,13 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:01/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:02/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:03/-1":
-                                    packetOut(context, PortNumber.portNumber(3));
+                                    packetOut(context, PortNumber.portNumber(3), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:04/-1":
-                                    packetOut(context, PortNumber.portNumber(4));
+                                    packetOut(context, PortNumber.portNumber(4), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -171,13 +172,13 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:02/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:01/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:03/-1":
-                                    packetOut(context, PortNumber.portNumber(4));
+                                    packetOut(context, PortNumber.portNumber(4), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:04/-1":
-                                    packetOut(context, PortNumber.portNumber(3));
+                                    packetOut(context, PortNumber.portNumber(3), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -186,10 +187,10 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:03/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:01/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:02/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -198,10 +199,10 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:04/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:01/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:02/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -216,10 +217,10 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:01/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:03/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:04/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -228,10 +229,10 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:02/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:03/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:04/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -240,13 +241,13 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:03/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:01/-1":
-                                    packetOut(context, PortNumber.portNumber(3));
+                                    packetOut(context, PortNumber.portNumber(3), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:02/-1":
-                                    packetOut(context, PortNumber.portNumber(4));
+                                    packetOut(context, PortNumber.portNumber(4), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:04/-1":
-                                    packetOut(context, PortNumber.portNumber(2));
+                                    packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -255,13 +256,13 @@ public class IntentReactiveForwarding {
                         case "00:00:00:00:00:04/-1":
                             switch (dstId.toString()) {
                                 case "00:00:00:00:00:01/-1":
-                                    packetOut(context, PortNumber.portNumber(4));
+                                    packetOut(context, PortNumber.portNumber(4), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:02/-1":
-                                    packetOut(context, PortNumber.portNumber(3));
+                                    packetOut(context, PortNumber.portNumber(3), srcId, dstId);
                                     break;
                                 case "00:00:00:00:00:03/-1":
-                                    packetOut(context, PortNumber.portNumber(1));
+                                    packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                                     break;
                                 default:
                                     break;
@@ -274,16 +275,16 @@ public class IntentReactiveForwarding {
                 case "of:0000000000000003":
                     switch (srcId.toString()) {
                         case "00:00:00:00:00:01/-1":
-                            packetOut(context, PortNumber.portNumber(2));
+                            packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                             break;
                         case "00:00:00:00:00:02/-1":
-                            packetOut(context, PortNumber.portNumber(2));
+                            packetOut(context, PortNumber.portNumber(2), srcId, dstId);
                             break;
                         case "00:00:00:00:00:03/-1":
-                            packetOut(context, PortNumber.portNumber(1));
+                            packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                             break;
                         case "00:00:00:00:00:04/-1":
-                            packetOut(context, PortNumber.portNumber(1));
+                            packetOut(context, PortNumber.portNumber(1), srcId, dstId);
                             break;
                         default:
                             break;
@@ -310,19 +311,22 @@ public class IntentReactiveForwarding {
 
 
     // Floods the specified packet if permissible.
-    private void flood(PacketContext context) {
-        if (topologyService.isBroadcastPoint(topologyService.currentTopology(),
-                                             context.inPacket().receivedFrom())) {
-            packetOut(context, PortNumber.FLOOD);
-        } else {
-            context.block();
-        }
-    }
+//    private void flood(PacketContext context) {
+//        if (topologyService.isBroadcastPoint(topologyService.currentTopology(),
+//                                             context.inPacket().receivedFrom())) {
+//            packetOut(context, PortNumber.FLOOD);
+//        } else {
+//            context.block();
+//        }
+//    }
 
     // Sends a packet out the specified port.
-    private void packetOut(PacketContext context, PortNumber portNumber) {
-        context.treatmentBuilder().setOutput(portNumber);
+    private void packetOut(PacketContext context, PortNumber portNumber, HostId srcId, HostId dstId) {
+        TrafficTreatment.Builder treatmentBuilder = context.treatmentBuilder().setOutput(portNumber);
         context.send();
+
+        TrafficTreatment treatment = treatmentBuilder.build();
+        installIntent(treatment, srcId, dstId);
     }
 
     private void forwardPacketToDst(PacketContext context, Host dst) {
@@ -331,6 +335,27 @@ public class IntentReactiveForwarding {
                                                           treatment, context.inPacket().unparsed());
         packetService.emit(packet);
         log.info("sending packet: {}", packet);
+
+    }
+
+    private void installIntent(TrafficTreatment treatment, HostId srcId, HostId dstId) {
+
+        Key key;
+        if (srcId.toString().compareTo(dstId.toString()) < 0) {
+            key = Key.of(srcId.toString() + dstId.toString(), appId);
+        } else {
+            key = Key.of(dstId.toString() + srcId.toString(), appId);
+        }
+
+        HostToHostIntent hostIntent = HostToHostIntent.builder()
+                .appId(appId)
+                .key(key)
+                .one(srcId)
+                .two(dstId)
+                .treatment(treatment)
+                .build();
+
+        intentService.submit(hostIntent);
     }
 
 
